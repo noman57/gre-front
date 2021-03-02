@@ -24,8 +24,10 @@
           Even though I was not sure how I would feel at first but surely was a good feeling.
           I would have loved to add some table library or bit more of type script.
           That surely would be on my to list.
-
         </p>
+
+        <p><a href="https://github.com/noman57/gre-front" target="_blank">link to git hub project</a></p>
+
       </span>
     </div>
 
