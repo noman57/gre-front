@@ -75,6 +75,9 @@
 
 <script>
 import Swal from "sweetalert2";
+import ProjectService from "@/components/service/ProjectService";
+import PersonService from "@/components/service/PersonService";
+import BuildingService from "@/components/service/BuildingService";
 
 export default {
   components: {
@@ -90,8 +93,7 @@ export default {
   methods: {
     addItem() {
       console.log(this.item);
-      let uri = '/projects';
-      this.axios.post(uri, this.project).then((response) => {
+      ProjectService.createProject(this.project).then((response) => {
         this.$router.push({name: 'ListProject'});
       }).catch((e) => {
         Swal.fire('Creation failed, please see log for details');
@@ -102,14 +104,12 @@ export default {
       this.project.status = event.target.value;
     },
     findPersons(){
-      let uri = '/persons';
-      this.axios.get(uri).then((response) => {
+      PersonService.findAll(null).then((response) => {
         console.log(response.data.content);
         this.persons = response.data.content;
       });
     },findBuildings(){
-      let uri = '/buildings';
-      this.axios.get(uri).then((response) => {
+      BuildingService.findAll(null).then((response) => {
         console.log(response.data.content);
         this.buildings = response.data.content;
       });

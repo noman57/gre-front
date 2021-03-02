@@ -6,7 +6,8 @@
       <tr>
         <td>ID</td>
         <td>Name</td>
-        <td>Actions</td>
+        <td>Edit</td>
+        <td>Delete</td>
       </tr>
       </thead>
 
@@ -14,52 +15,55 @@
       <tr v-for="building in buildings" :key="building.id">
         <td>{{ building.id }}</td>
         <td>{{ building.name }}</td>
-        <td><router-link :to="{name: 'UpdateBuilding', params: { id: building.id }}" class="btn btn-primary">Edit</router-link></td>
-        <td><button class="btn btn-danger"  v-on:click="deleteItem(building.id)">Delete</button></td>
+        <td>
+          <router-link :to="{name: 'UpdateBuilding', params: { id: building.id }}" class="btn btn-primary">Edit
+          </router-link>
+        </td>
+        <td>
+          <button class="btn btn-danger" v-on:click="deleteItem(building.id)">Delete</button>
+        </td>
       </tr>
       </tbody>
     </table>
-    <div><router-link :to="{name: 'CreateBuilding'}" class="btn btn-primary">add building</router-link></div>
+    <div>
+      <router-link :to="{name: 'CreateBuilding'}" class="btn btn-primary">add building</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 
 import Swal from "sweetalert2";
+import BuildingService from "@/components/service/BuildingService";
 
 export default {
-  data(){
-    return{
-      error:"",
+  data() {
+    return {
+      error: "",
       buildings: []
     }
   },
 
-  created: function()
-  {
+  created: function () {
     this.fetchItems();
   },
 
   methods: {
-    fetchItems()
-    {
-      let uri = '/buildings';
-      this.axios.get(uri).then((response) => {
+    fetchItems() {
+      BuildingService.findAll(null).then((response) => {
         console.log(response.data.content);
         this.buildings = response.data.content;
       });
     },
-  deleteItem(id)
-  {
-    let uri = '/buildings/'+id;
-    this.axios.delete(uri).then((response) => {
-      this.$router.go();
-    }).catch((e) => {
-      Swal.fire('Delete failed, Building  is already in a project');
-      console.log(e);
-      // room for improvement here
-    });
-  }
+    deleteItem(id) {
+      BuildingService.delete(id).then((response) => {
+        this.$router.go();
+      }).catch((e) => {
+        Swal.fire('Delete failed, Building  is already in a project');
+        console.log(e);
+        // room for improvement here
+      });
+    }
   }
 }
 </script>

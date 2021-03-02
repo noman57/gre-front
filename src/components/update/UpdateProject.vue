@@ -28,7 +28,7 @@
               <option value="Complete">Complete</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group" v-if="project.person!=null">
             <label>get person</label>
             <select
                 type="select"
@@ -44,8 +44,8 @@
             </select>
           </div>
 
-          <div class="form-group">
-            <label >Building</label>
+          <div class="form-group" v-if="project.building!=null">
+            <label>Building</label>
             <select
                 type="select"
                 class="form-control"
@@ -73,24 +73,27 @@
 </template>
 
 <script>
-export default{
-  data(){
-    return{
-      project: {},
-      persons:{},
-      buildings:{}
+import ProjectService from "@/components/service/ProjectService";
+import PersonService from "@/components/service/PersonService";
+import BuildingService from "@/components/service/BuildingService";
+
+export default {
+  data() {
+    return {
+      project: {
+      },
+      persons: {},
+      buildings: {}
     }
   },
 
-  created: function(){
+  created: function () {
     this.getItem();
   },
 
   methods: {
-    getItem()
-    {
-      let uri = '/projects/' + this.$route.params.id;
-      this.axios.get(uri).then((response) => {
+    getItem() {
+      ProjectService.findById(this.$route.params.id).then((response) => {
         this.project = response.data;
       });
     },
@@ -103,22 +106,18 @@ export default{
     setPerson(event) {
       this.project.personId = event.target.value;
     },
-    updateItem()
-    {
-      let uri = '/projects/' + this.$route.params.id;
-      this.axios.patch(uri, this.project).then((response) => {
+    updateItem() {
+      ProjectService.updateProject(this.$route.params.id, this.project).then((response) => {
         this.$router.push({name: 'ListProject'});
       });
     },
-    findPersons(){
-      let uri = '/persons';
-      this.axios.get(uri).then((response) => {
+    findPersons() {
+      PersonService.findAll(null).then((response) => {
         console.log(response.data.content);
         this.persons = response.data.content;
       });
-    },findBuildings(){
-      let uri = '/buildings';
-      this.axios.get(uri).then((response) => {
+    }, findBuildings() {
+      BuildingService.findAll(null).then((response) => {
         console.log(response.data.content);
         this.buildings = response.data.content;
       });

@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import PersonService from "@/components/service/PersonService";
+
 export default {
   components: {
     /*name: 'AddItem'*/
@@ -32,8 +34,7 @@ export default {
   methods: {
     addItem() {
       console.log(this.item);
-      let uri = '/persons';
-      this.axios.post(uri, this.person).then((response) => {
+      PersonService.createPerson( this.person).then((response) => {
         this.$router.push({name: 'ListPerson'});
       });
     }

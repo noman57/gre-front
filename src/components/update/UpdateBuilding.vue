@@ -19,6 +19,9 @@
   </div>
 </template>
 <script>
+
+import BuildingService from "@/components/service/BuildingService";
+
 export default{
   data(){
     return{
@@ -33,16 +36,14 @@ export default{
   methods: {
     getItem()
     {
-      let uri = '/buildings/' + this.$route.params.id;
-      this.axios.get(uri).then((response) => {
+      BuildingService.findById(this.$route.params.id).then((response) => {
         this.building = response.data;
       });
     },
 
     updateItem()
     {
-      let uri = '/buildings/' + this.$route.params.id;
-      this.axios.patch(uri, this.building).then((response) => {
+      BuildingService.updateBuilding(this.$route.params.id, this.building).then((response) => {
         this.$router.push({name: 'ListBuilding'});
       });
     }

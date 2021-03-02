@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import BuildingService from "@/components/service/BuildingService";
+
 export default {
   components: {
     /*name: 'AddItem'*/
@@ -32,8 +34,7 @@ export default {
   methods: {
     addItem() {
       console.log(this.item);
-      let uri = '/buildings';
-      this.axios.post(uri, this.building).then((response) => {
+      BuildingService.createBuilding(this.building).then((response) => {
         this.$router.push({name: 'ListBuilding'});
       });
     }

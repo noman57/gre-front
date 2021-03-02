@@ -19,30 +19,30 @@
   </div>
 </template>
 <script>
-export default{
-  data(){
-    return{
-      person:{}
+
+
+import PersonService from "@/components/service/PersonService";
+
+export default {
+  data() {
+    return {
+      person: {}
     }
   },
 
-  created: function(){
+  created: function () {
     this.getItem();
   },
 
   methods: {
-    getItem()
-    {
-      let uri = '/persons/' + this.$route.params.id;
-      this.axios.get(uri).then((response) => {
+    getItem() {
+      PersonService.findById(this.$route.params.id).then((response) => {
         this.person = response.data;
       });
     },
 
-    updateItem()
-    {
-      let uri = '/persons/' + this.$route.params.id;
-      this.axios.patch(uri, this.person).then((response) => {
+    updateItem() {
+      PersonService.updatePerson(this.$route.params.id, this.person).then((response) => {
         this.$router.push({name: 'ListPerson'});
       });
     }
