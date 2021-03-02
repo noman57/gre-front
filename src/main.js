@@ -4,6 +4,7 @@ import VueAxios from 'vue-axios';
 import axios from './http-common'
 import router from './router'
 
+
 import App from './App.vue';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/nprogress/nprogress.css';

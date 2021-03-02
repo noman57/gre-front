@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Buildings</h1>
+    <h1>Persons</h1>
     <table class="table table-hover">
       <thead>
       <tr>
@@ -11,15 +11,15 @@
       </thead>
 
       <tbody>
-      <tr v-for="building in buildings" :key="building.id">
-        <td>{{ building.id }}</td>
-        <td>{{ building.name }}</td>
-        <td><router-link :to="{name: 'UpdateBuilding', params: { id: building.id }}" class="btn btn-primary">Edit</router-link></td>
-        <td><button class="btn btn-danger"  v-on:click="deleteItem(building.id)">Delete</button></td>
+      <tr v-for="person in persons" :key="person.id">
+        <td>{{ person.id }}</td>
+        <td>{{ person.name }}</td>
+        <td><router-link :to="{name: 'UpdatePerson', params: { id: person.id }}" class="btn btn-primary">Edit</router-link></td>
+        <td><button class="btn btn-danger"  v-on:click="deleteItem(person.id)">Delete</button></td>
       </tr>
       </tbody>
     </table>
-    <div><router-link :to="{name: 'CreateBuilding'}" class="btn btn-primary">add building</router-link></div>
+    <div><router-link :to="{name: 'CreatePerson'}" class="btn btn-primary">add person</router-link></div>
   </div>
 </template>
 
@@ -30,8 +30,7 @@ import Swal from "sweetalert2";
 export default {
   data(){
     return{
-      error:"",
-      buildings: []
+      persons: []
     }
   },
 
@@ -43,19 +42,19 @@ export default {
   methods: {
     fetchItems()
     {
-      let uri = '/buildings';
+      let uri = '/persons';
       this.axios.get(uri).then((response) => {
         console.log(response.data.content);
-        this.buildings = response.data.content;
+        this.persons = response.data.content;
       });
     },
   deleteItem(id)
   {
-    let uri = '/buildings/'+id;
+    let uri = '/persons/'+id;
     this.axios.delete(uri).then((response) => {
       this.$router.go();
     }).catch((e) => {
-      Swal.fire('Delete failed, Building  is already in a project');
+      Swal.fire('Delete failed, Person is already in a project');
       console.log(e);
       // room for improvement here
     });

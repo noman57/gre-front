@@ -3,10 +3,13 @@
     <nav class="navbar navbar-expand-sm bg-light">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link :to="{ name: 'CreateBuilding' }" class="nav-link">Add Item</router-link>
+          <router-link :to="{ name: 'ListBuilding' }" class="nav-link">Buildings</router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'ListBuilding' }" class="nav-link">All Items</router-link>
+          <router-link :to="{ name: 'ListPerson' }" class="nav-link">Persons</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'ListProject' }" class="nav-link">Projects</router-link>
         </li>
       </ul>
     </nav>

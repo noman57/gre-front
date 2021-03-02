@@ -2,16 +2,16 @@
   <div class="container">
     <div class="card">
       <div class="card-header">
-        <h3>Add Building</h3>
+        <h3>Add Person</h3>
       </div>
       <div class="card-body">
         <form v-on:submit.prevent="addItem">
           <div class="form-group">
             <label>Name:</label>
-            <input type="text" class="form-control" v-model="building.name"/>
+            <input type="text" class="form-control" v-model="person.name"/>
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Add Building"/>
+            <input type="submit" class="btn btn-primary" value="Add Person"/>
           </div>
         </form>
       </div>
@@ -26,15 +26,15 @@ export default {
   },
   data() {
     return {
-      building: {}
+      person: {}
     }
   },
   methods: {
     addItem() {
       console.log(this.item);
-      let uri = '/buildings';
-      this.axios.post(uri, this.building).then((response) => {
-        this.$router.push({name: 'ListBuilding'});
+      let uri = '/persons';
+      this.axios.post(uri, this.person).then((response) => {
+        this.$router.push({name: 'ListPerson'});
       });
     }
   }
