@@ -5,10 +5,10 @@
         <h3>Add Person</h3>
       </div>
       <div class="card-body">
-        <form v-on:submit.prevent="addItem">
+        <form v-on:submit.prevent="addPerson">
           <div class="form-group">
             <label>Name:</label>
-            <input type="text" class="form-control" v-model="person.name"/>
+            <input required type="text" class="form-control" v-model="person.name"/>
           </div>
           <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Add Person"/>
@@ -21,21 +21,22 @@
 
 <script>
 import PersonService from "@/components/service/PersonService";
+import Swal from "sweetalert2";
 
 export default {
-  components: {
-    /*name: 'AddItem'*/
-  },
   data() {
     return {
       person: {}
     }
   },
   methods: {
-    addItem() {
+    addPerson() {
       console.log(this.item);
       PersonService.createPerson( this.person).then((response) => {
         this.$router.push({name: 'ListPerson'});
+      }).catch((e) => {
+        Swal.fire('Creation failed, please see log for details');
+        console.log(e);
       });
     }
   }

@@ -21,6 +21,7 @@
 <script>
 
 import BuildingService from "@/components/service/BuildingService";
+import Swal from "sweetalert2";
 
 export default{
   data(){
@@ -45,6 +46,8 @@ export default{
     {
       BuildingService.updateBuilding(this.$route.params.id, this.building).then((response) => {
         this.$router.push({name: 'ListBuilding'});
+      }).catch((e) => {
+        Swal.fire('Update failed,'+e.response.data.errors);
       });
     }
   }

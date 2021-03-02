@@ -5,10 +5,10 @@
         <h3>Add Building</h3>
       </div>
       <div class="card-body">
-        <form v-on:submit.prevent="addItem">
+        <form v-on:submit.prevent="addBuilding">
           <div class="form-group">
             <label>Name:</label>
-            <input type="text" class="form-control" v-model="building.name"/>
+            <input required type="text" class="form-control" v-model="building.name"/>
           </div>
           <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Add Building"/>
@@ -23,16 +23,13 @@
 import BuildingService from "@/components/service/BuildingService";
 
 export default {
-  components: {
-    /*name: 'AddItem'*/
-  },
   data() {
     return {
       building: {}
     }
   },
   methods: {
-    addItem() {
+    addBuilding() {
       console.log(this.item);
       BuildingService.createBuilding(this.building).then((response) => {
         this.$router.push({name: 'ListBuilding'});

@@ -1,7 +1,46 @@
 <template>
   <div>
     <h1>Projects</h1>
+    <form>
+      <div class="form-row">
+        <div class="col">
+          <select
+              type="select"
+              class="form-control"
+              v-model="filter.personId"
+              name="person"
+          >
+            <option value="" selected >Please select person</option>
+            <option v-for="(person, i) in persons" :key="i" :value="person.id">
+              {{ person.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col">
+          <select
+              type="select"
+              class="form-control"
+              v-model="filter.buildingId"
+              name="building"
+          >
+            <option value="" selected >Please select building</option>
+            <option v-for="(building, i) in buildings" :key="i" :value="building.id">
+              {{ building.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col ">
+          <button class="btn btn-info form-control"  type="button" v-on:click="filterProjectResults()">filter</button>
+        </div>
+        <div class="col ">
+          <button class="btn btn-info form-control"  type="button" v-on:click="fetchItems()">reset</button>
+        </div>
+      </div>
+    </form>
     <table class="table table-hover">
+
       <thead>
       <tr>
         <td>ID</td>
@@ -47,12 +86,19 @@
 
 import Swal from "sweetalert2";
 import ProjectService from "@/components/service/ProjectService";
+import PersonService from "@/components/service/PersonService";
+import BuildingService from "@/components/service/BuildingService";
 
 export default {
   data() {
     return {
-      error: "",
-      projects: []
+      projects: [],
+      persons: {},
+      filter: {
+        personId:null,
+        buildingId:null
+      },
+      buildings: {}
     }
   },
 
@@ -71,12 +117,35 @@ export default {
       ProjectService.delete(id).then((response) => {
         this.$router.go();
       }).catch((e) => {
+        Swal.fire('Delete failed,'+e.response.data.errors);
+      });
+    },
+    filterProjectResults() {
+      ProjectService.filterResult(this.filter.personId,this.filter.buildingId).then((response) => {
+        this.projects = response.data.content;
+
+      }).catch((e) => {
         console.log(e);
-        Swal.fire('Delete failed,Please see the log');
+        Swal.fire('Failed to load filter results');
         console.log(e);
         // room for improvement here
       });
+    },
+    findPersons() {
+      PersonService.findAll(null).then((response) => {
+        console.log(response.data.content);
+        this.persons = response.data.content;
+      });
+    }, findBuildings() {
+      BuildingService.findAll(null).then((response) => {
+        console.log(response.data.content);
+        this.buildings = response.data.content;
+      });
     }
+  },
+  mounted() {
+    this.findPersons();
+    this.findBuildings();
   }
 }
 </script>

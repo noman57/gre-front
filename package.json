@@ -14,7 +14,8 @@
     "nprogress": "^0.2.0",
     "sweetalert2": "^10.15.5",
     "vue": "^2.6.11",
-    "vue-axios": "^3.2.4"
+    "vue-axios": "^3.2.4",
+    "vuetify": "^2.4.5"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

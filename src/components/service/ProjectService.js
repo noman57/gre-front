@@ -10,6 +10,20 @@ class PersonService {
         return axios.get(`/projects/${id}`)
     }
 
+    filterResult(personId,buildingId) {
+        var tempUrl='/projects/filter?';
+        if(personId!=null){
+            tempUrl+='personId='+personId;
+        }
+        if(personId!=null && buildingId!=null){
+            tempUrl+='&';
+        }
+        if(buildingId!=null){
+            tempUrl+='buildingId='+buildingId;
+        }
+        return axios.get(tempUrl)
+    }
+
     delete(id) {
         return axios.delete(`/projects/${id}`)
     }

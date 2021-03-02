@@ -76,6 +76,7 @@
 import ProjectService from "@/components/service/ProjectService";
 import PersonService from "@/components/service/PersonService";
 import BuildingService from "@/components/service/BuildingService";
+import Swal from "sweetalert2";
 
 export default {
   data() {
@@ -106,9 +107,18 @@ export default {
     setPerson(event) {
       this.project.personId = event.target.value;
     },
-    updateItem() {
+    updateItem: function () {
+
+      if (this.project.personId == null) {
+        this.project.personId = this.project.person.id;
+      }
+      if (this.project.buildingId == null) {
+        this.project.buildingId = this.project.building.id;
+      }
       ProjectService.updateProject(this.$route.params.id, this.project).then((response) => {
         this.$router.push({name: 'ListProject'});
+      }).catch((e) => {
+        Swal.fire('Update failed,' + e.response.data.errors);
       });
     },
     findPersons() {

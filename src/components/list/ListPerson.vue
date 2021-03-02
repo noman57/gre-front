@@ -58,9 +58,7 @@ export default {
       PersonService.delete(id).then((response) => {
         this.$router.go();
       }).catch((e) => {
-        Swal.fire('Delete failed, Person is already in a project');
-        console.log(e);
-        // room for improvement here
+        Swal.fire('Delete failed,'+e.response.data.errors);
       });
     }
   }

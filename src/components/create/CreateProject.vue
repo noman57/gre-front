@@ -5,10 +5,10 @@
         <h3>Add project</h3>
       </div>
       <div class="card-body">
-        <form v-on:submit.prevent="addItem">
+        <form v-on:submit.prevent="addProject">
           <div class="form-group">
             <label>Name:</label>
-            <input type="text" class="form-control" v-model="project.name"/>
+            <input required type="text" class="form-control" v-model="project.name"/>
           </div>
           <div class="form-group">
             <label>Description:</label>
@@ -80,9 +80,6 @@ import PersonService from "@/components/service/PersonService";
 import BuildingService from "@/components/service/BuildingService";
 
 export default {
-  components: {
-    /*name: 'AddItem'*/
-  },
   data() {
     return {
       project: {},
@@ -91,7 +88,7 @@ export default {
     }
   },
   methods: {
-    addItem() {
+    addProject() {
       console.log(this.item);
       ProjectService.createProject(this.project).then((response) => {
         this.$router.push({name: 'ListProject'});
