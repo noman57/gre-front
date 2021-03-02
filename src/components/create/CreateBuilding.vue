@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="card">
+  <div  class="container bg-light">
+    <div >
       <div class="card-header">
         <h3>Add Building</h3>
       </div>

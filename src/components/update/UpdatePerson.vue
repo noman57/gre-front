@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
-    <div class="card">
+  <div  class="container bg-light">
+    <div >
       <div class="card-header">
         <h3>Edit Item</h3>
       </div>
       <div class="card-body">
         <form v-on:submit.prevent="updatePerson">
           <div class="form-group">
-            <label>Item Name:</label>
+            <label>Name:</label>
             <input type="text" class="form-control" v-model="person.name"/>
           </div>
           <div class="form-group">

@@ -9,12 +9,18 @@ import UpdatePerson from "@/components/update/UpdatePerson";
 import ListProject from "@/components/list/ListProject";
 import CreateProject from "@/components/create/CreateProject";
 import UpdateProject from "@/components/update/UpdateProject";
+import Home from "@/components/Home";
 
 Vue.use(Router);
 
 export default new Router({
     mode: "history",
     routes: [
+        {
+            name: 'Home',
+            path: '/',
+            component: Home
+        },
         {
         name: 'CreateBuilding',
         path: '/create-building',

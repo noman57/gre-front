@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Buildings</h1>
+  <div  class="container bg-light">
+    <h3>Buildings</h3>
     <table class="table table-hover">
       <thead>
       <tr>

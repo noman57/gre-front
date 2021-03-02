@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>Projects</h1>
+  <div  class="container bg-light">
+    <h3>Projects</h3>
     <form>
       <div class="form-row">
         <div class="col">
